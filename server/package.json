@@ -1,0 +1,36 @@
+{
+  "name": "gnome-depot-server",
+  "version": "0.0.1",
+  "description": "Gnomebody Does It Better",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexilson/gnome-depot.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "gnomes"
+  ],
+  "author": "Alex Ilson, Mark Bishop, Spencer Cox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexilson/gnome-depot/issues"
+  },
+  "homepage": "https://github.com/alexilson/gnome-depot#readme",
+  "dependencies": {
+    "@apollo/server": "^4.10.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.2.0",
+    "stripe": "^14.18.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
