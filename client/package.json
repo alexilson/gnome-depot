@@ -12,8 +12,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.15",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@stripe/stripe-js": "^1.54.0",
     "@testing-library/react": "^14.0.0",
+    "framer-motion": "^11.0.8",
     "graphql": "^16.6.0",
     "happy-dom": "^9.20.3",
     "jwt-decode": "^3.1.2",
