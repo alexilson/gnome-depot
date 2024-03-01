@@ -7,10 +7,18 @@ type User {
     password: String
 }
 
+type Auth {
+    token: String
+    user: User
+}
+
 type Query {
     me: User
 }
 
+type Mutation {
+    addUser(username: String, email: String, password: String): Auth
+}
 
 `
 
