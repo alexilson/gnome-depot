@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const orderSchema = require('./Order');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
@@ -17,7 +18,8 @@ const userSchema = new Schema(
         password: {
             type: String,
             required: true
-        }
+        },
+        orders: [orderSchema]
     },
     {
         toJSON: {
