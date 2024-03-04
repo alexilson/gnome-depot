@@ -19,6 +19,10 @@ type Item {
 type orderItem {
     itemId: ID
     price: Float
+
+type Auth {
+    token: String
+    user: User
 }
 
 type Order {
@@ -29,6 +33,11 @@ type Order {
 
 type Query {
     me: User
+}
+
+type Mutation {
+    addUser(username: String, email: String, password: String): Auth
+
 }
 `
 
