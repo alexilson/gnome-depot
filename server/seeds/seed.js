@@ -10,8 +10,15 @@ db.once('open', async () => {
     await cleanDB('Item', 'items');
     await cleanDB('User', 'users');
 
-    await User.insertMany(userData);
+    const userOrderData = await userData.map((user) => {
+        console.log(user)
+        user.orders = orderData
+        console.log(user)
+        return user
+    })
+
     await Item.insertMany(itemData);
+    await User.insertMany(userOrderData);
 
     process.exit(0);
 })

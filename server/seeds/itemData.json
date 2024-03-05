@@ -1,42 +1,52 @@
 [
     {
         "name": "Test Gnome",
-        "description": "Gnome Sweet Gnome: where every line of code feels like gnome."
+        "description": "Gnome Sweet Gnome: where every line of code feels like gnome.",
+        "image": "/images/giant-gnome-shovel.jpg"
     },
     {
         "name": "Other Gnome",
-        "description": "Don't be a grumpy gnome! Let's debug those code bugs together."
+        "description": "Don't be a grumpy gnome! Let's debug those code bugs together.",
+        "image": "/images/gnome-boxer.jpg"
     },
     {
         "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!",
+        "image": "/images/gnome-couples.jpg"
     },
     {
         "name": "Gnomey By Nature",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "description": "I'm gnome expert, but I know a good pun when I hear one!",
+        "image": "/images/gnome-drunk-set.jpg"
     },
     {
-        "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "name": "Tall Gnome",
+        "description": "Gnome matter how you spin it, puns are always a hit!",
+        "image": "/images/gnome-flipping-bird.jpg"
     },
     {
-        "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "name": "Invisible Gnome",
+        "description": "I'm gnome for my love of wordplay!",
+        "image": "/images/gnome-game-of-gnomes.jpg"
     },
     {
-        "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "name": "ET Phone Gnome",
+        "description": "Gnome need to be serious when you can pun!",
+        "image": "/images/gnome-go-away.jpg"
     },
     {
-        "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "name": "No Place Like Gnome",
+        "description": "Gnomebody does puns quite like a garden gnome!",
+        "image": "/images/gnome-godzilla.jpg"
     },
     {
-        "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "name": "I'm Not Gnome",
+        "description": "Gnome matter how you slice it, puns are always fun!",
+        "image": "/images/gnome-hippie-gandalph.jpg"
     },
     {
-        "name": "Hyper Gnome",
-        "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!"
+        "name": "Old Gnome",
+        "description": "Gnome place like puns to brighten your day!",
+        "image": "/images/gnome-toilet.jpg"
     }
 ]
