@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Heading, Input, Button } from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, Button, Text } from "@chakra-ui/react";
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -12,8 +12,8 @@ function SignUp() {
     email: '',
     password: ''
   });
-  
-  const [addUser, {error, data }] = useMutation(ADD_USER);
+
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -32,15 +32,19 @@ function SignUp() {
         variables: { ...formState },
       });
 
-      Auth.login(data.addProfile.token); // Assuming Auth is correctly defined
+      // Ensure data exists before accessing it
+      if (data && data.addUser && data.addUser.token) {
+        Auth.login(data.addUser.token); // Access the token from the correct location
+      } else {
+        throw new Error('Failed to fetch token from response.');
+      }
     } catch (e) {
       console.error(e);
-      // Handle error: Display error message to the user
     }
   };
 
   return (
-    <Flex bg='gray.200' align="center" justify="center" minHeight="100vh">
+    <Flex bg='gray.200' align="center" justify="center" minHeight="100vh" width='100vw'>
       <Box
         bg='white'
         width="100%"
@@ -58,6 +62,7 @@ function SignUp() {
             value={formState.username}
             onChange={handleChange}
             mb={4}
+            required // Add required attribute for form validation
           />
           <Input
             placeholder="Email"
@@ -65,6 +70,8 @@ function SignUp() {
             value={formState.email}
             onChange={handleChange}
             mb={4}
+            type="email" // Set input type to email for browser validation
+            required // Add required attribute for form validation
           />
           <Input
             placeholder="Password"
@@ -73,11 +80,18 @@ function SignUp() {
             value={formState.password}
             onChange={handleChange}
             mb={6}
+            required // Add required attribute for form validation
           />
           <Button colorScheme="blue" type="submit" width="100%">
             Sign Up
           </Button>
         </form>
+        {error && <Text color="red.500">Error: {error.message}</Text>}
+        {data && (
+          <Text color="green.500">
+            Success! You may now head back to the homepage.
+          </Text>
+        )}
       </Box>
     </Flex>
   );
