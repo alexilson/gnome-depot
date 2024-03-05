@@ -12,16 +12,15 @@ export const ADD_USER = gql`
 `;
 
 
-// export const LOGIN_USER = gql`
-//   mutation login($email: String!, $password: String!) {
-//     login(email: $email, password: $password) {
-//       token
-//       profile {
-//         _id
-//         name
-//       }
-//     }
-//   }
-// `;
+export const LOGIN_USER = gql`
+  mutation login($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+      user {
+        username
+      }
+    }
+  }
+`;
 
 
