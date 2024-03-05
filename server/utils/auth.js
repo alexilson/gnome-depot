@@ -5,7 +5,7 @@ const secret = "gnomebodygnomes"
 const expiration = '2h'
 
 module.exports = {
-    AuthenticationError: new GraphQLError('Could not authenticate', {
+    AuthenticationError: new GraphQLError('Could not authenicate', {
         extensions: {
             code: 'UNAUTHENTICATED'
         }
