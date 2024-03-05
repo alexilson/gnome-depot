@@ -34,7 +34,8 @@ function SignUp() {
 
       // Ensure data exists before accessing it
       if (data && data.addUser && data.addUser.token) {
-        Auth.login(data.addUser.token); // Access the token from the correct location
+        console.log(data.addUser.token);
+        Auth.login(data.addUser.token); 
       } else {
         throw new Error('Failed to fetch token from response.');
       }
