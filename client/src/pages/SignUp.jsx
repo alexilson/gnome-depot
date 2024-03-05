@@ -1,48 +1,68 @@
 import { useState } from 'react';
 import { Box, Flex, Heading, Input, Button } from "@chakra-ui/react";
 
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations';
+
+import Auth from '../utils/auth';
+
 function SignUp() {
-  const [formData, setFormData] = useState({
+  const [formState, setFormState] = useState({
+    username: '',
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
+  
+  const [addUser, {error, data }] = useMutation(ADD_USER);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // You can handle form submission here, for example, send the data to your backend
-    console.log(formData);
-    // Reset form fields after submission
-    setFormData({
-      email: '',
-      password: '',
-      confirmPassword: ''
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
     });
   };
 
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formState },
+      });
+
+      Auth.login(data.addProfile.token); // Assuming Auth is correctly defined
+    } catch (e) {
+      console.error(e);
+      // Handle error: Display error message to the user
+    }
+  };
+
   return (
-    <Flex bg='gnome.500' align="center" justify="center" minHeight="100vh" width='100vw'>
+    <Flex bg='gray.200' align="center" justify="center" minHeight="100vh">
       <Box
-        bg='gnome.400'
+        bg='white'
         width="100%"
         maxWidth="400px"
         p={8}
         borderWidth={1}
         borderRadius={8}
         boxShadow="lg"
-        margin="auto" // Center the box horizontally and vertically
       >
         <Heading mb={4}>Sign Up</Heading>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleFormSubmit}>
+          <Input
+            placeholder="Username"
+            name="username"
+            value={formState.username}
+            onChange={handleChange}
+            mb={4}
+          />
           <Input
             placeholder="Email"
             name="email"
-            value={formData.email}
+            value={formState.email}
             onChange={handleChange}
             mb={4}
           />
@@ -50,15 +70,7 @@ function SignUp() {
             placeholder="Password"
             type="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
-            mb={4}
-          />
-          <Input
-            placeholder="Confirm Password"
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            value={formState.password}
             onChange={handleChange}
             mb={6}
           />
