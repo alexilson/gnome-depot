@@ -19,6 +19,7 @@ type Item {
 type orderItem {
     itemId: ID
     price: Float
+}
 
 type Auth {
     token: String
