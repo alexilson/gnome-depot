@@ -17,8 +17,8 @@ db.once('open', async () => {
         return user
     })
 
-    await Item.insertMany(itemData);
-    await User.insertMany(userOrderData);
+    await Item.create(itemData);
+    await User.create(userOrderData);
 
     process.exit(0);
 })
