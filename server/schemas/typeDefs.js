@@ -34,6 +34,7 @@ type Order {
 
 type Query {
     me: User
+    viewItems(id: ID): [Item]
 }
 
 type Mutation {
