@@ -29,3 +29,16 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const VIEW_ITEMS = gql`
+query viewItems($viewItemsId: ID) {
+  viewItems(id: $viewItemsId) {
+    _id
+    name
+    description
+    image
+    price
+    inStock
+  }
+}
+`
