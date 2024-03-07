@@ -1,4 +1,5 @@
 import { Box, Text, Center } from "@chakra-ui/react";
+import ProductList from "../components/ProductList";
 
 export default function Homepage() {
   return (
@@ -9,6 +10,7 @@ export default function Homepage() {
       <Center height="calc(100vh - 1.5rem)"> 
         <img src="../src/assets/icon.jpg" alt="Your Image" style={{ width: "500px", height: "500px" }} />
       </Center>
+      <ProductList />
     </Box>
   );      
 }
