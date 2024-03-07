@@ -1,27 +1,16 @@
-import React from 'react';
-import { Box, Center, Grid, GridItem } from "@chakra-ui/react";
-import Product from "../components/Product";
-import itemData from "../../../server/seeds/itemData.json";
+import { Box, Text, Center } from "@chakra-ui/react";
+import ProductList from "../components/ProductList";
 
 export default function Homepage() {
   return (
-    <Box width="100%">
-      <Center height="100vh">
-        <Grid
-          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-          gap={4}
-          justifyContent="center"
-          alignItems="center"
-          maxWidth="90vw" // Set maximum width for responsiveness
-          padding={4} // Add some padding for aesthetics
-        >
-          {itemData.map((item, index) => (
-            <GridItem key={index}>
-              <Product product={item} />
-            </GridItem>
-          ))}
-        </Grid>
+    <Box bg='gnome.100' height='100%' width='100vw'>
+      <Text>
+        Home
+      </Text>
+      <Center height="calc(100vh - 1.5rem)"> 
+        <img src="../src/assets/icon.jpg" alt="Your Image" style={{ width: "500px", height: "500px" }} />
       </Center>
+      <ProductList />
     </Box>
-  );
+  );      
 }
