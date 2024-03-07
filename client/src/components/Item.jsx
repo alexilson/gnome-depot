@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, CardHeader, CardBody, CardFooter, Heading, Text, Button } from '@chakra-ui/react';
 
-const Product = ({ product }) => {
+const Item = ({ item }) => {
   return (
     <Card>
       <CardHeader>
-        <Heading size='md'>{product.name}</Heading>
+        <Heading size='md'>{item.name}</Heading>
       </CardHeader>
       <CardBody>
-        <Text>{product.description}</Text>
+        <Text>{item.description}</Text>
       </CardBody>
       <CardFooter>
         <Button variant='ghost' colorScheme='blue'>
@@ -19,4 +19,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default Item;
