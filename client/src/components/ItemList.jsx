@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { SimpleGrid } from '@chakra-ui/react';
 import Item from './Item'; 
 import { useQuery } from '@apollo/client';
-import { GET_ITEMS } from '../utils/queries'; 
+import { VIEW_ITEMS } from '../utils/queries'; 
 import { idbPromise } from '../utils/helpers';
 import spinner from '../assets/spinner.gif';
 
