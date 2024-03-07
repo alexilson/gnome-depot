@@ -1,16 +1,23 @@
-import { Box, Text, Center } from "@chakra-ui/react";
-import ProductList from "../components/ProductList";
+import React from 'react';
+import { Box, Text, Container, Grid } from "@chakra-ui/react";
+import Item from '../components/Item';
+import itemData from '../../../server/seeds/itemData.json'; 
+import ItemList from '../components/ItemList'
 
 export default function Homepage() {
   return (
-    <Box bg='gnome.100' height='100%' width='100vw'>
-      <Text>
-        Home
-      </Text>
-      <Center height="calc(100vh - 1.5rem)"> 
-        <img src="../src/assets/icon.jpg" alt="Your Image" style={{ width: "500px", height: "500px" }} />
-      </Center>
-      <ProductList />
-    </Box>
+    <Container maxW="100%">
+      <Text color="black" fontSize="3xl">Main Page</Text>
+      {/* Use a Grid with three columns */}
+      <Grid
+        templateColumns="repeat(3, 1fr)" // Three columns with equal width
+        gap={4} // Space between grid items
+        justifyContent="center" // Center align grid items
+      >
+        {itemData.map((item, index) => (
+          <Item key={index} item={item} />
+        ))}
+      </Grid>
+    </Container>
   );      
 }
