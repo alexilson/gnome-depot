@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Item } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -8,6 +8,9 @@ const resolvers = {
                 return User.findOne({ _id: context.user._id });
             }
             throw AuthenticationError;
+        },
+        viewItems: async (parent, { id }) => {
+                return await Item.find(id ? {_id: id} : {});
         }
     },
     Mutation: {
