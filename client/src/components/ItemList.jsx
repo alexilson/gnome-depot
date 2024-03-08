@@ -20,12 +20,12 @@ const ItemList = () => {
   }
 
   return (
-    <Container maxW="100%">
-      <Text color="black" fontSize="3xl">Main Page</Text>
+    <Container maxW="100%" boxShadow="lg">
       <Box display="flex" justifyContent="center">
         <Grid
           templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
-          gap={4} // Space between grid items
+          gap={6}
+          p={6} 
         >
           {data.viewItems.map((item, index) => (
             <Item key={index} item={item} />

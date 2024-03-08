@@ -41,9 +41,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <StoreProvider>
-         {/* <Header /> */}
+        <Header />
             <Outlet />  
-        {/* <Footer /> */}
+        <Footer />
         </StoreProvider>
     </ApolloProvider>
        

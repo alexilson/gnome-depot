@@ -6,7 +6,7 @@ import Cart from "../components/Cart";
 export default function Homepage() {
   return (
     <Container maxW="100%">
-      <ItemList />
+    <ItemList />
       <Cart />
     </Container>
   );      
