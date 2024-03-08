@@ -11,6 +11,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import './App.css'
 
+import { StoreProvider } from './utils/GlobalState';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -38,9 +40,11 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <StoreProvider>
          {/* <Header /> */}
             <Outlet />  
         {/* <Footer /> */}
+        </StoreProvider>
     </ApolloProvider>
        
   )
