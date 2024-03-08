@@ -5,8 +5,6 @@ import { VIEW_ITEMS } from '../utils/queries';
 
 
 function Item( { item }) {
-  const { loading, data } = useQuery(VIEW_ITEMS); 
-  console.log(data);
   
   return (
     <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -43,20 +41,7 @@ function Item( { item }) {
           <Box as='span' color='gray.600' fontSize='sm'>
           </Box>
         </Box>
-
-        {/* <Box display='flex' mt='2' alignItems='center'>
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < property.rating ? 'teal.500' : 'gray.300'}
-              />
-            ))}
-          <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-            {property.reviewCount} reviews
-          </Box>
-        </Box> */}
+        
       </Box>
     </Box>
   )
