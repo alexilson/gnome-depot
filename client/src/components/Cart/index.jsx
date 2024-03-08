@@ -7,6 +7,7 @@ import CartItem from '../CartItem';
 import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
+import icon from '/images/cart_icon.png'
 import './style.css';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
@@ -66,7 +67,7 @@ const Cart = () => {
     return (
       <div className="cart-closed" onClick={toggleCart}>
         <span role="img" aria-label="trash">
-          🛒
+        <img src={icon} alt="cart-icon" /> 
         </span>
       </div>
     );

@@ -40,7 +40,7 @@ function Item({ item }) {
   };
 
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    <Box maxW='sm' borderWidth='1px' borderRadius='lg' bg='gnome.400' overflow='hidden'>
       <Image src={item.image} alt={item.name} />
 
       <Box p='6'>

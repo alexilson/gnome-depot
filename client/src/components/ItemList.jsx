@@ -20,7 +20,7 @@ const ItemList = () => {
   }
 
   return (
-    <Container maxW="100%" boxShadow="lg">
+    <Container maxW="100%" pb="75px" bg='gnome.200'> 
       <Box display="flex" justifyContent="center">
         <Grid
           templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
