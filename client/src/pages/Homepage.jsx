@@ -5,8 +5,8 @@ import Cart from "../components/Cart";
 
 export default function Homepage() {
   return (
-    <Container maxW="100%">
-      <ItemList />
+    <Container padding={0} maxW="100%">
+    <ItemList />
       <Cart />
     </Container>
   );      

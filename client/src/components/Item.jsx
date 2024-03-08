@@ -5,8 +5,7 @@ import { StarIcon } from '@chakra-ui/icons';
 import { useQuery } from '@apollo/client';
 import { VIEW_ITEMS } from '../utils/queries'; 
 
-
-function Item( { item }) {
+function Item({ item }) {
   const [state, dispatch] = useStoreContext();
 
   const {
@@ -17,10 +16,10 @@ function Item( { item }) {
     quantity
   } = item;
 
-  const { cart } = state
+  const { cart } = state;
 
   const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
+    const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
@@ -38,10 +37,10 @@ function Item( { item }) {
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
-  }
+  };
 
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
+    <Box maxW='sm' borderWidth='1px' borderRadius='lg' bg='gnome.400' overflow='hidden'>
       <Image src={item.image} alt={item.name} />
 
       <Box p='6'>
@@ -57,7 +56,7 @@ function Item( { item }) {
             fontSize='xl'
             ml='2'
           >
-             {item.name}
+            {item.name}
           </Box>
         </Box>
         
@@ -72,16 +71,15 @@ function Item( { item }) {
 
         <Box>
           ${item.price}
-          <Box as='span' color='gray.600' fontSize='sm'>
-          </Box>
+          <Box as='span' color='gray.600' fontSize='sm'></Box>
         </Box>
-        <Button onClick={addToCart} colorScheme="blue">
-      Add to Cart
-    </Button>
 
+        <Button onClick={addToCart} colorScheme="blue">
+          Add to Cart
+        </Button>
       </Box>
     </Box>
-  )
+  );
 }
 
 export default Item;

@@ -5,7 +5,6 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 import App from './App.jsx'
 import Home from './pages/Homepage.jsx';
-import Cart from './pages/Cart.jsx';
 import SignUp from './pages/SignUp.jsx';
 import Login from './pages/Login.jsx';
 
@@ -44,10 +43,6 @@ const router = createBrowserRouter([
       {
         path: '/Login',
         element: <Login />,
-      },
-      {
-        path: '/Cart',
-        element: <Cart />,
       },
     ],
   },
