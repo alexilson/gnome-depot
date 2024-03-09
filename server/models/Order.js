@@ -10,7 +10,7 @@ const orderSchema = new Schema(
             },
         orderStatus: {
             type: String,
-            default: "Pending"
+            default: "Draft"
         },
         items: [orderItemSchema]
     },

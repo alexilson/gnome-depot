@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+// const Item = require('./Item');
 const orderSchema = require('./Order');
 const bcrypt = require('bcrypt');
 
@@ -19,7 +20,13 @@ const userSchema = new Schema(
             type: String,
             required: true
         },
-        orders: [orderSchema]
+        orders: [orderSchema],
+        cart: [
+            {
+            type: Schema.Types.ObjectId,
+            ref: 'Item'
+            }
+        ]
     },
     {
         toJSON: {
