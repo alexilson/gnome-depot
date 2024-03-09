@@ -10,7 +10,6 @@ import Login from './pages/Login.jsx';
 
 import './index.css'
 
-
 const colors = {
   gnome: {
     100: '#57A16E', // Jade

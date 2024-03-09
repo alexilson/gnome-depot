@@ -1,4 +1,4 @@
-const { User, Item } = require('../models');
+const { User, Item, Order } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -15,7 +15,45 @@ const resolvers = {
         viewOrders: async (parent, args, context) => {
             console.log("Trying to view orders", context.user)
             return await User.find(context.user ? { _id: context.user._id } : {}).populate("orders")
-        }
+        },
+        checkout: async (parent, args, context) => {
+            console.log("Made it to server checkout")
+            const url = new URL(context.headers.referer).origin;
+            console.log("URL: ", url)
+            const order = new Order({ products: args.products });
+            console.log(order);
+            const line_items = [];
+            const { products } = await order.populate('products');
+            
+            for (let i = 0; i < products.length; i++) {
+              const product = await stripe.products.create({
+                name: products[i].name,
+                description: products[i].description,
+                images: [`${url}/images/${products[i].image}`]
+              });
+      
+              const price = await stripe.prices.create({
+                product: product.id,
+                unit_amount: products[i].price * 100,
+                currency: 'usd',
+              });
+      
+              line_items.push({
+                price: price.id,
+                quantity: 1
+              });
+            }
+      
+            const session = await stripe.checkout.sessions.create({
+              payment_method_types: ['card'],
+              line_items,
+              mode: 'payment',
+              success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+              cancel_url: `${url}/`
+            });
+      
+            return { session: session.id };
+          }
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
@@ -71,6 +109,7 @@ const resolvers = {
             console.log(user)
             return user;
         }
+        
     }
 }
 

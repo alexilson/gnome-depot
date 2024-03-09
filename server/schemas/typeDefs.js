@@ -27,6 +27,10 @@ type Auth {
     user: User
 }
 
+type Checkout {
+    session: ID
+  }
+
 type Order {
     orderDate: String
     orderStatus: String
@@ -37,6 +41,7 @@ type Query {
     me: User
     viewItems(id: ID): [Item]
     viewOrders: [User]
+    checkout(products: [ID]!): Checkout
 }
 
 type Mutation {

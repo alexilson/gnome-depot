@@ -4,6 +4,9 @@ import { idbPromise } from "../../utils/helpers";
 import { useQuery, useMutation } from '@apollo/client';
 import { REMOVE_DB_CART } from "../../utils/mutations";
 
+import { Flex, Image, Box, Text, Input, IconButton } from '@chakra-ui/react';
+import { DeleteIcon } from '@chakra-ui/icons';
+
 const CartItem = ({ item }) => {
 
   const [, dispatch] = useStoreContext();
@@ -45,33 +48,30 @@ const CartItem = ({ item }) => {
   }
 
   return (
-    <div className="flex-row">
-      <div>
-        <img
-          src={`/images/${item.image}`}
-          alt=""
+    <Flex alignItems="center" width="100%">
+    <Box display="inline-block">
+      <Image src={item.image} alt="" />
+    </Box>
+    <Box width="100%" ml={4} display="inline-block">
+      <Text>{item.name}, ${item.price}</Text>
+      <Flex alignItems="center">
+        <Text>Qty:</Text>
+        <Input
+          type="number"
+          placeholder="1"
+          value={item.purchaseQuantity}
+          onChange={onChange}
+          ml={2}
         />
-      </div>
-      <div>
-        <div>{item.name}, ${item.price}</div>
-        <div>
-          <span>Qty:</span>
-          <input
-            type="number"
-            placeholder="1"
-            value={item.purchaseQuantity}
-            onChange={onChange}
-          />
-          <span
-            role="img"
-            aria-label="trash"
-            onClick={() => removeFromCart(item)}
-          >
-            🗑️
-          </span>
-        </div>
-      </div>
-    </div>
+        <IconButton
+          icon={<DeleteIcon />}
+          aria-label="Delete"
+          onClick={() => removeFromCart(item)}
+          ml={2}
+        />
+      </Flex>
+    </Box>
+  </Flex>
   );
 }
 

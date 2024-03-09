@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Heading, Input, Button, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, Button, Text, Link } from "@chakra-ui/react";
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
@@ -45,7 +45,14 @@ function SignUp() {
   };
 
   return (
-    <Flex bg='gray.200' align="center" justify="center" minHeight="100vh" width='100vw'>
+    <Flex 
+      backgroundImage="url('/images/soil-backdrop.jpeg')" 
+      backgroundSize="cover"
+      backgroundPosition="center"
+      align="center" 
+      justify="center" 
+      minHeight="75vh" 
+      width='100vw'>
       <Box
         bg='white'
         width="100%"
@@ -86,6 +93,9 @@ function SignUp() {
           <Button colorScheme="blue" type="submit" width="100%">
             Sign Up
           </Button>
+          <Text mt={4} color="gray.500">
+          If you already have an account go to login page.
+        </Text>
         </form>
         {error && <Text color="red.500">Error: {error.message}</Text>}
         {data && (

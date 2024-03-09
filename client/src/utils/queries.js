@@ -13,7 +13,7 @@ query viewItems($viewItemsId: ID) {
 }
 `
 export const QUERY_CHECKOUT = gql`
-  query getCheckout($products: [ProductInput]) {
+  query getCheckout($products: [ID]!) {
     checkout(products: $products) {
       session
     }
