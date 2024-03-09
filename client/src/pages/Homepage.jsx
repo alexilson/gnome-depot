@@ -7,7 +7,7 @@ export default function Homepage() {
   return (
     <Container padding={0} maxW="100%">
     <ItemList />
-      <Cart />
+    <Cart />
     </Container>
   );      
 }

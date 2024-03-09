@@ -20,19 +20,22 @@ const ItemList = () => {
   }
 
   return (
-    <Container maxW="100%" pb="75px" bg='gnome.200'> 
-      <Box display="flex" justifyContent="center">
-        <Grid
-          templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
-          gap={6}
-          p={6} 
-        >
-          {data.viewItems.map((item, index) => (
-            <Item key={index} item={item} />
-          ))}
-        </Grid>
-      </Box>
-    </Container>
+      <Container maxW="100%" pb="75px" 
+        backgroundImage="url('/images/soil-backdrop.jpeg')" 
+        backgroundSize="cover"
+        backgroundPosition="center"> 
+        <Box display="flex" justifyContent="center">
+          <Grid
+            templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
+            gap={6}
+            p={6} 
+          >
+            {data.viewItems.map((item, index) => (
+              <Item key={index} item={item} />
+            ))}
+          </Grid>
+        </Box>
+      </Container>
   );      
 }
 
