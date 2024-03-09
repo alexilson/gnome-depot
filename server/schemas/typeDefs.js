@@ -46,6 +46,7 @@ type Query {
 
 type Mutation {
     addUser(username: String, email: String, password: String): Auth
+    addOrder(products: [ID]!): Order
     loginUser(username: String!, password: String!): Auth
     addToCart(item: ID!): User
     removeFromCart(item: ID!): User

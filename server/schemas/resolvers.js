@@ -1,5 +1,6 @@
 const { User, Item, Order } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
     Query: {
@@ -19,12 +20,12 @@ const resolvers = {
         checkout: async (parent, args, context) => {
             console.log("Made it to server checkout")
             const url = new URL(context.headers.referer).origin;
-            console.log("URL: ", url)
             const order = new Order({ products: args.products });
-            console.log(order);
+            console.log(Order);
             const line_items = [];
+            console.log("LINE ITEMS: ", line_items);
             const { products } = await order.populate('products');
-            
+      
             for (let i = 0; i < products.length; i++) {
               const product = await stripe.products.create({
                 name: products[i].name,

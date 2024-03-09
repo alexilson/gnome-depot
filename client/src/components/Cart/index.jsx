@@ -29,7 +29,7 @@ const Cart = () => {
   }, [data]);
 
   // If the cart's length or if the dispatch function is updated, check to see if the cart is empty.
-  // If so, invoke the getCart method and populate the cart with the existing from the session
+  // If so, invoke the getCart method and populate the cart with the existing from the session/
   useEffect(() => {
     async function getCart() {
       const cart = await idbPromise('cart', 'get');
@@ -56,18 +56,11 @@ const Cart = () => {
   // When the submit checkout method is invoked, loop through each item in the cart
   // Add each item id to the productIds array and then invoke the getCheckout query passing an object containing the id for all our products
   function submitCheckout() {
-    const productIds = [];
 
-    state.cart.forEach((item) => {
-      for (let i = 0; i < item.purchaseQuantity; i++) {
-        productIds.push(item._id);
-      }
-    });
-
-    console.log(productIds);
-    
     getCheckout({
-      variables: { products: productIds },
+      variables: { 
+        products: [...state.cart],
+      },
     });
   }
 
