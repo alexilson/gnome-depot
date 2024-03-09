@@ -1,12 +1,39 @@
-import React from 'react';
-import { Container, Text, Grid, Box } from "@chakra-ui/react";
-import { useQuery } from '@apollo/client';
+import { useEffect } from 'react';
 import Item from './Item'; 
-import { VIEW_ITEMS } from '../utils/queries'; 
+import { useStoreContext } from '../utils/GlobalState';
+import { UPDATE_PRODUCTS } from '../utils/actions';
+import { useQuery } from '@apollo/client';
+import { VIEW_ITEMS } from '../utils/queries';  // Same as QUERY_PRODUCTS
+import { idbPromise } from '../utils/helpers';
+// import spinner from '../../assets/spinner.gif';
+import { Container, Grid, Box } from "@chakra-ui/react";
 
 const ItemList = () => {
+  const [state, dispatch] = useStoreContext();
+
   const { loading, error, data } = useQuery(VIEW_ITEMS); 
+  console.log(data)
   
+  useEffect(() => {
+    if (data) {
+      // dispatch({
+      //   type: UPDATE_PRODUCTS,
+      //   products: data.products,
+      // });
+      data.viewItems.forEach((product) => {
+        idbPromise('products', 'put', product);
+      });
+    } else if (!loading) {
+      idbPromise('products', 'get').then((products) => {
+        dispatch({
+          type: UPDATE_PRODUCTS,
+          products: products,
+        });
+      });
+    }
+  }, [data, loading, dispatch]);
+
+
   if (loading) {
     return <div>Loading...</div>; 
   }
