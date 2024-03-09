@@ -8,6 +8,7 @@ import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
 import icon from '/images/cart.png'
+import { Box, Heading, Text, Button } from '@chakra-ui/react';
 import './style.css';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
@@ -74,37 +75,37 @@ const Cart = () => {
   }
 
   return (
-    <div className="cart">
-      <div className="close" onClick={toggleCart}>
+    <Box className="cart">
+      <Box className="close" onClick={toggleCart}>
         [close]
-      </div>
-      <h2>Shopping Cart</h2>
+      </Box>
+      <Heading as="h2">Shopping Cart</Heading>
       {state.cart.length ? (
-        <div>
+        <Box>
           {state.cart.map((item) => (
             <CartItem key={item._id} item={item} />
           ))}
 
-          <div className="flex-row space-between">
-            <strong>Total: ${calculateTotal()}</strong>
+          <Box className="flex-row space-between">
+            <Text fontWeight="bold">Total: ${calculateTotal()}</Text>
 
             {/* Check to see if the user is logged in. If so render a button to check out */}
             {Auth.loggedIn() ? (
-              <button onClick={submitCheckout}>Checkout</button>
+              <Button onClick={submitCheckout}>Checkout</Button>
             ) : (
-              <span>(log in to check out)</span>
+              <Text>(log in to check out)</Text>
             )}
-          </div>
-        </div>
+          </Box>
+        </Box>
       ) : (
-        <h3>
+        <Heading as="h3">
           <span role="img" aria-label="shocked">
             😱
           </span>
           You haven't added anything to your cart yet!
-        </h3>
+        </Heading>
       )}
-    </div>
+    </Box>
   );
 };
 
