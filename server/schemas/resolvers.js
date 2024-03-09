@@ -16,6 +16,10 @@ const resolvers = {
             console.log("Trying to view orders", context.user)
             return await User.find(context.user ? { _id: context.user._id } : {}).populate("orders")
         },
+        viewCart: async (parent, args, context) => {
+            console.log("Trying to view cart", context.user)
+            return await User.findOne( { _id: context.user._id } ).populate("cart");
+        },
         checkout: async (parent, args, context) => {
             console.log("Made it to server checkout")
             const url = new URL(context.headers.referer).origin;
@@ -82,6 +86,9 @@ const resolvers = {
                 },
                 {
                     $push: { cart: item }
+                },
+                {
+                    new: true
                 }
             ).populate('cart');
             console.log(user);

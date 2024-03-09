@@ -15,7 +15,7 @@ const itemSchema = new Schema(
         },
         price: {
             type: Number,
-            default: 0
+            default: 0.99
         },
         inStock: {
             type: Boolean,

@@ -19,3 +19,18 @@ export const QUERY_CHECKOUT = gql`
     }
   }
 `;
+
+export const VIEW_CART = gql`
+  query viewCart {
+    viewCart {
+      cart {
+        _id
+        name
+        description
+        image
+        price
+        inStock
+      }
+    }
+  }
+`
