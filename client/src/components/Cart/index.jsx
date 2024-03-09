@@ -7,7 +7,7 @@ import CartItem from '../CartItem';
 import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
-import icon from '/images/cart_icon.png'
+import icon from '/images/cart.png'
 import './style.css';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
