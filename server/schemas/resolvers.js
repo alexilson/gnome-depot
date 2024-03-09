@@ -11,6 +11,10 @@ const resolvers = {
         },
         viewItems: async (parent, { id }) => {
                 return await Item.find(id ? {_id: id} : {});
+        },
+        viewOrders: async (parent, args, context) => {
+            console.log("Trying to view orders", context.user)
+            return await User.find(context.user ? { _id: context.user._id } : {}).populate("orders")
         }
     },
     Mutation: {
@@ -29,6 +33,43 @@ const resolvers = {
 
             const token = await signToken(user)
             return { token, user }
+        },
+        addToCart: async (parent, { item }, context) => {
+            console.log("Adding to cart...");
+            console.log(item)
+            console.log("User id:", context.user._id)
+            const user = await User.findOneAndUpdate(
+                {
+                    _id: context.user._id
+                },
+                {
+                    $push: { cart: item }
+                }
+            ).populate('cart');
+            console.log(user);
+            return(user);
+        },
+        removeFromCart: async (parent, { item }, context) => {
+            console.log("Removing from cart...");
+            console.log(item)
+            console.log("User id:", context.user._id)
+            const user = await User.findOneAndUpdate(
+                {
+                    _id: context.user._id
+                },
+                {
+                    $pull: 
+                        {
+                            'cart': item
+                        }
+                },
+                {
+                    new: true
+                }
+            )
+            .populate('cart');
+            console.log(user)
+            return user;
         }
     }
 }

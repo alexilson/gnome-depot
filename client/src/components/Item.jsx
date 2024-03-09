@@ -2,11 +2,14 @@ import { Box, Image, Badge, Button } from '@chakra-ui/react';
 import { useStoreContext } from "../utils/GlobalState";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
 import { StarIcon } from '@chakra-ui/icons';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { VIEW_ITEMS } from '../utils/queries'; 
+import { ADD_DB_CART } from "../utils/mutations";
 
 function Item({ item }) {
   const [state, dispatch] = useStoreContext();
+
+  const [addDbCart, {error}] = useMutation(ADD_DB_CART);
 
   const {
     image,
@@ -18,7 +21,12 @@ function Item({ item }) {
 
   const { cart } = state;
 
-  const addToCart = () => {
+  const addToCart = async () => {
+
+    console.log("Adding to db cart")
+    const cartDb = await addDbCart({variables: { item: _id}});
+    console.log(cartDb);
+
     const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {
       dispatch({
@@ -26,17 +34,18 @@ function Item({ item }) {
         _id: _id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
       });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
+      // idbPromise('cart', 'put', {
+      //   ...itemInCart,
+      //   purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
+      // });
     } else {
       dispatch({
         type: ADD_TO_CART,
         product: { ...item, purchaseQuantity: 1 }
       });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
+      // idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
+
   };
 
   return (
