@@ -41,6 +41,7 @@ type Query {
     me: User
     viewItems(id: ID): [Item]
     viewOrders: [User]
+    viewCart: User
     checkout(products: [ID]!): Checkout
 }
 

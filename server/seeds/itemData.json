@@ -3,60 +3,60 @@
         "name": "Test Gnome",
         "description": "Gnome Sweet Gnome: where every line of code feels like gnome.",
         "image": "/images/giant-gnome-shovel.jpg",
-        "price": 50
+        "price": 49.99
     },
     {
         "name": "Other Gnome",
         "description": "Don't be a grumpy gnome! Let's debug those code bugs together.",
         "image": "/images/gnome-boxer.jpg",
-        "price": 100
+        "price": 99.99
     },
     {
         "name": "Hyper Gnome",
         "description": "Gnome pun intended: our code is gnome-stalgic yet cutting-edge!",
         "image": "/images/gnome-couples.jpg",
-        "price": 200
+        "price": 199.99
     },
     {
         "name": "Gnomey By Nature",
         "description": "I'm gnome expert, but I know a good pun when I hear one!",
         "image": "/images/gnome-drunk-set.jpg",
-        "price": 75
+        "price": 74.99
     },
     {
         "name": "Tall Gnome",
         "description": "Gnome matter how you spin it, puns are always a hit!",
         "image": "/images/gnome-flipping-bird.jpg",
-        "price": 150
+        "price": 149.99
     },
     {
         "name": "Invisible Gnome",
         "description": "I'm gnome for my love of wordplay!",
         "image": "/images/gnome-game-of-gnomes.jpg",
-        "price": 300
+        "price": 299.99
     },
     {
         "name": "ET Phone Gnome",
         "description": "Gnome need to be serious when you can pun!",
         "image": "/images/gnome-go-away.jpg",
-        "price": 80
+        "price": 79.99
     },
     {
         "name": "No Place Like Gnome",
         "description": "Gnomebody does puns quite like a garden gnome!",
         "image": "/images/gnome-godzilla.jpg",
-        "price": 400
+        "price": 399.99
     },
     {
         "name": "I'm Not Gnome",
         "description": "Gnome matter how you slice it, puns are always fun!",
         "image": "/images/gnome-hippie-gandalph.jpg",
-        "price": 250
+        "price": 249.99
     },
     {
         "name": "Old Gnome",
         "description": "Gnome place like puns to brighten your day!",
         "image": "/images/gnome-toilet.jpg",
-        "price": 60
+        "price": 59.99
     }
 ]
