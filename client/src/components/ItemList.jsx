@@ -46,17 +46,25 @@ const ItemList = () => {
   }
 
   return (
-      <Container maxW="100%" pb="75px" bg='gnome.200'>
+      <Container maxW={{ base: "100%", xl: "2560px" }} pb="75px" bg='gnome.200'>
         <Box display="flex" justifyContent="center">
-          <Grid
-            templateColumns={{ base: "repeat(1, 2fr)", sm: "repeat(2, 2fr)", md: "repeat(3, 2fr)", lg: "repeat(5, 2fr)", xl: "repeat(6, 2fr)"}}
-            gap={6}
-            p={6} 
-          >
-            {data.viewItems.map((item, index) => (
-              <Item key={index} item={item} />
-            ))}
-          </Grid>
+        <Grid
+  templateColumns={{
+    base: "repeat(1, minmax(230px, 1fr))",
+    sm: "repeat(2, minmax(230px, 1fr))",
+    md: "repeat(3, minmax(230px, 1fr))",
+    lg: "repeat(4, minmax(230px, 1fr))",
+    xl: "repeat(6, minmax(230px, 2fr))"
+  }}
+  gap={6}
+  p={6} 
+>
+  {data.viewItems.map((item, index) => (
+    <Item key={index} item={item} />
+  ))}
+</Grid>
+
+
         </Box>
       </Container>
   );      

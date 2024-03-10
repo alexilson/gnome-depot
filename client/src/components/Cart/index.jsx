@@ -42,7 +42,7 @@ const Cart = () => {
       const cart = cartDb.data.viewCart.cart
 
       // const cart = await idbPromise('cart', 'get');
-      dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+      //dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
     }
 
     if (!state.cart.length) {
@@ -57,7 +57,11 @@ const Cart = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach((item) => {
-      sum += item.price * item.purchaseQuantity;
+      console.log(item);
+
+      //TODO: fixe the quantity issue
+      sum += item.price //* item.purchaseQuantity;  
+
     });
     return sum.toFixed(2);
   }
