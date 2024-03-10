@@ -36,8 +36,10 @@ function Item({ item }) {
   };
 
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' bg='gnome.400' overflow='hidden'>
-      <Image src={item.image} alt={item.name} />
+    <Box maxW='sm' borderWidth='5px' borderRadius='lg' borderColor='gnome.400' bg='gnome.400' overflow='hidden'>
+      <Box borderWidth='1px' borderColor='white' borderRadius='lg' overflow='hidden'>
+        <Image src={item.image} alt={item.name} />
+      </Box>
       <Box p='6'>
         <Box display='flex' alignItems='baseline'>
           <Badge borderRadius='full' px='2' colorScheme='teal'>

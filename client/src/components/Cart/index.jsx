@@ -8,7 +8,7 @@ import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
 import icon from '/images/cart.png'
-import { Box, Heading, Text, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react';
 import './style.css';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
@@ -42,7 +42,7 @@ const Cart = () => {
       const cart = cartDb.data.viewCart.cart
 
       // const cart = await idbPromise('cart', 'get');
-      //dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
+      dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
     }
 
     if (!state.cart.length) {
@@ -57,8 +57,6 @@ const Cart = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach((item) => {
-      console.log(item);
-
       //TODO: fixe the quantity issue
       sum += item.price //* item.purchaseQuantity;  
 
@@ -92,14 +90,13 @@ const Cart = () => {
       <Box className="close" onClick={toggleCart}>
         [close]
       </Box>
-      <Heading as="h2">Shopping Cart</Heading>
+      <Heading as="h1" p={4}>Shopping Cart</Heading>
       {state.cart.length ? (
-        <Box>
+        <VStack width='100%' alignItems="center" spacing={4}>
           {state.cart.map((item) => (
             <CartItem key={item._id} item={item} />
           ))}
-
-          <Box className="flex-row space-between">
+          <Box m={4}>
             <Text fontWeight="bold">Total: ${calculateTotal()}</Text>
 
             {/* Check to see if the user is logged in. If so render a button to check out */}
@@ -109,9 +106,9 @@ const Cart = () => {
               <Text>(log in to check out)</Text>
             )}
           </Box>
-        </Box>
+        </VStack>
       ) : (
-        <Heading as="h3">
+        <Heading as="h1">
           <span role="img" aria-label="shocked">
             😱
           </span>

@@ -50,7 +50,7 @@ const CartItem = ({ item }) => {
   return (
     <Flex alignItems="center" width="100%">
     <Box display="inline-block">
-      <Image src={item.image} alt="" />
+      <Image src={item.image} alt="cart item  pic" />
     </Box>
     <Box width="100%" ml={4} display="inline-block">
       <Text>{item.name}, ${item.price}</Text>
