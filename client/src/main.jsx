@@ -6,6 +6,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import App from './App.jsx'
 import Home from './pages/Homepage.jsx';
 import SignUp from './pages/SignUp.jsx';
+import Success from './pages/Success';
 import Login from './pages/Login.jsx';
 
 import './index.css'
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: '/Login',
         element: <Login />,
+      },
+      {
+        path: '/success',
+        element: <Success />
       },
     ],
   },
