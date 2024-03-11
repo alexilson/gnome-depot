@@ -3,7 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 const Header = () => {
     return (
-        <Box width='100vw' position="fixed" bg='gnome.300'>
+        <Box width='100vw' position="sticky" zIndex={1} bg='gnome.300'>
             <Flex justifyContent="space-between" alignItems="center" p={4}>
                 <Text textAlign='left' fontSize='50px'>
                     Header
