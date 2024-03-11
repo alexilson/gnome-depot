@@ -1,34 +1,30 @@
 import { Box, Image, Badge, Button } from '@chakra-ui/react';
 import { useStoreContext } from "../utils/GlobalState";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
-import { StarIcon } from '@chakra-ui/icons';
-import { useQuery } from '@apollo/client';
-import { VIEW_ITEMS } from '../utils/queries'; 
+import { useMutation } from '@apollo/client';
+import { ADD_DB_CART } from "../utils/mutations";
 
-
-function Item( { item }) {
+function Item({ item }) {
   const [state, dispatch] = useStoreContext();
+  const [addDbCart] = useMutation(ADD_DB_CART);
 
   const {
-    image,
     name,
     _id,
     price,
-    quantity
   } = item;
 
-  const { cart } = state
+  const { cart } = state;
 
-  const addToCart = () => {
-    const itemInCart = cart.find((cartItem) => cartItem._id === _id)
+  const addToCart = async () => {
+    const cartDb = await addDbCart({ variables: { item: _id } });
+    console.log(cartDb);
+    
+    const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: _id,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
       });
     } else {
@@ -36,20 +32,19 @@ function Item( { item }) {
         type: ADD_TO_CART,
         product: { ...item, purchaseQuantity: 1 }
       });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
-  }
+  };
 
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-      <Image src={item.image} alt={item.name} />
-
+    <Box maxW='sm' borderWidth='5px' borderRadius='lg' borderColor='gnome.400' bg='gnome.400' overflow='hidden'>
+      <Box borderWidth='1px' borderColor='white' borderRadius='lg' overflow='hidden'>
+        <Image src={item.image} alt={item.name} />
+      </Box>
       <Box p='6'>
         <Box display='flex' alignItems='baseline'>
           <Badge borderRadius='full' px='2' colorScheme='teal'>
             New
           </Badge>
-          
           <Box
             color='black'
             fontWeight='bold'
@@ -57,31 +52,23 @@ function Item( { item }) {
             fontSize='xl'
             ml='2'
           >
-             {item.name}
+            {item.name}
           </Box>
         </Box>
-        
-        <Box
-          mt='1'
-          fontWeight='semibold'
-          as='h3'
-          lineHeight='tight'
-        >
+        <Box mt='1' pb='3' fontWeight='semibold' as='h3' lineHeight='tight'>
           {item.description}
         </Box>
-
-        <Box>
-          ${item.price}
-          <Box as='span' color='gray.600' fontSize='sm'>
+        <Box display="flex" justifyContent="space-between">
+          <Button onClick={addToCart} colorScheme="blue">
+            Add to Cart
+          </Button>
+          <Box as="span" color="gnome.600" fontSize="xl" fontWeight='bold'>
+            ${item.price.toFixed(2)}
           </Box>
         </Box>
-        <Button onClick={addToCart} colorScheme="blue">
-      Add to Cart
-    </Button>
-
       </Box>
     </Box>
-  )
+  );
 }
 
 export default Item;

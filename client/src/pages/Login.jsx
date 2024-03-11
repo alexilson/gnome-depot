@@ -47,8 +47,8 @@ const Login = (props) => {
   };
 
   return (
-    <Flex bg='gnome.500' align="center" justify="center" minHeight="100vh" width='100vw'>
-      <Box bg='gnome.400' width="400px" p={8} borderWidth={1} borderRadius={8} boxShadow="lg">
+    <Flex bg='gnome.500'align="center" justify="center" height="75vh" width='100vw'>
+      <Box bg='gnome.400' width="400px" p={8} borderWidth={1} borderRadius={8} boxShadow="lg" marginTop="-100px">
         <Heading mb={4}>Login</Heading>
         <form onSubmit={handleFormSubmit}>
           <Input
@@ -80,6 +80,9 @@ const Login = (props) => {
             </Text>
           )}
         </form>
+        <Text mt={4} color="gray.500">
+          If you do not have an account, <Link to="/signup">sign up here</Link>.
+        </Text>
       </Box>
     </Flex>
   );

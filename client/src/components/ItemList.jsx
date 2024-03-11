@@ -1,12 +1,38 @@
-import React from 'react';
-import { Container, Text, Grid, Box } from "@chakra-ui/react";
-import { useQuery } from '@apollo/client';
+import { useEffect } from 'react';
 import Item from './Item'; 
-import { VIEW_ITEMS } from '../utils/queries'; 
+import { useStoreContext } from '../utils/GlobalState';
+import { UPDATE_PRODUCTS } from '../utils/actions';
+import { useQuery } from '@apollo/client';
+import { VIEW_ITEMS } from '../utils/queries';  // Same as QUERY_PRODUCTS
+import { idbPromise } from '../utils/helpers';
+// import spinner from '../../assets/spinner.gif';
+import { Container, Grid, Box } from "@chakra-ui/react";
 
 const ItemList = () => {
+  const [state, dispatch] = useStoreContext();
+
   const { loading, error, data } = useQuery(VIEW_ITEMS); 
-  
+
+  useEffect(() => {
+    if (data) {
+      // dispatch({
+      //   type: UPDATE_PRODUCTS,
+      //   products: data.products,
+      // });
+      data.viewItems.forEach((product) => {
+        idbPromise('products', 'put', product);
+      });
+    } else if (!loading) {
+      idbPromise('products', 'get').then((products) => {
+        dispatch({
+          type: UPDATE_PRODUCTS,
+          products: products,
+        });
+      });
+    }
+  }, [data, loading, dispatch]);
+
+
   if (loading) {
     return <div>Loading...</div>; 
   }
@@ -20,19 +46,27 @@ const ItemList = () => {
   }
 
   return (
-    <Container maxW="100%">
-      <Text color="black" fontSize="3xl">Main Page</Text>
-      <Box display="flex" justifyContent="center">
+      <Container maxW={{ base: "100%", xl: "2560px" }} pb="75px" bg='gnome.200'>
+        <Box display="flex" justifyContent="center">
         <Grid
-          templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
-          gap={4} // Space between grid items
-        >
-          {data.viewItems.map((item, index) => (
-            <Item key={index} item={item} />
-          ))}
-        </Grid>
-      </Box>
-    </Container>
+  templateColumns={{
+    base: "repeat(1, minmax(230px, 1fr))",
+    sm: "repeat(2, minmax(230px, 1fr))",
+    md: "repeat(3, minmax(230px, 1fr))",
+    lg: "repeat(4, minmax(230px, 1fr))",
+    xl: "repeat(6, minmax(230px, 2fr))"
+  }}
+  gap={6}
+  p={6} 
+>
+  {data.viewItems.map((item, index) => (
+    <Item key={index} item={item} />
+  ))}
+</Grid>
+
+
+        </Box>
+      </Container>
   );      
 }
 
