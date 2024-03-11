@@ -8,7 +8,6 @@ import mascot2 from '/images/mascot2.png';
 
 const Header = () => {
     return (
-        <>
             <Box bg='gnome.300' px={[4, 6]} py={[4, 8]} textAlign="center" position="relative">
                 <Flex justifyContent="center" alignItems="center" flexDirection={['column', 'row']}>
                     <img src={mascot} alt="Header GIF" style={{ maxWidth: "100%", height: "200px", marginBottom: [3, 0] }} />
@@ -30,7 +29,6 @@ const Header = () => {
                     )}
                 </Flex>
             </Box>
-        </>
     );
 }
 

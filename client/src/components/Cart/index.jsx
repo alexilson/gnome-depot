@@ -8,7 +8,7 @@ import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
 import icon from '/images/cart.png'
-import { Box, Heading, Text, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react';
 import './style.css';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
@@ -30,7 +30,7 @@ const Cart = () => {
   }, [data]);
 
   // If the cart's length or if the dispatch function is updated, check to see if the cart is empty.
-  // If so, invoke the getCart method and populate the cart with the existing from the session
+  // If so, invoke the getCart method and populate the cart with the existing from the session/
   useEffect(() => {
     async function getCart() {
 
@@ -57,7 +57,9 @@ const Cart = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach((item) => {
-      sum += item.price * item.purchaseQuantity;
+      //TODO: fixe the quantity issue
+      sum += item.price //* item.purchaseQuantity;  
+
     });
     return sum.toFixed(2);
   }
@@ -65,19 +67,24 @@ const Cart = () => {
   // When the submit checkout method is invoked, loop through each item in the cart
   // Add each item id to the productIds array and then invoke the getCheckout query passing an object containing the id for all our products
   function submitCheckout() {
+    console.log("INSIDE CART CHECKOUT")
+    //console.log(state);    
     const productIds = [];
+
 
     state.cart.forEach((item) => {
       for (let i = 0; i < item.purchaseQuantity; i++) {
         productIds.push(item._id);
       }
     });
+    
 
     console.log(productIds);
-    
+
     getCheckout({
       variables: { products: productIds },
     });
+
   }
 
   if (!state.cartOpen) {
@@ -95,14 +102,13 @@ const Cart = () => {
       <Box className="close" onClick={toggleCart}>
         [close]
       </Box>
-      <Heading as="h2">Shopping Cart</Heading>
+      <Heading as="h1" p={4}>Shopping Cart</Heading>
       {state.cart.length ? (
-        <Box>
+        <VStack width='100%' alignItems="center" spacing={4}>
           {state.cart.map((item) => (
             <CartItem key={item._id} item={item} />
           ))}
-
-          <Box className="flex-row space-between">
+          <Box m={4}>
             <Text fontWeight="bold">Total: ${calculateTotal()}</Text>
 
             {/* Check to see if the user is logged in. If so render a button to check out */}
@@ -112,9 +118,9 @@ const Cart = () => {
               <Text>(log in to check out)</Text>
             )}
           </Box>
-        </Box>
+        </VStack>
       ) : (
-        <Heading as="h3">
+        <Heading as="h1">
           <span role="img" aria-label="shocked">
             😱
           </span>

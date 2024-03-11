@@ -12,8 +12,7 @@ const ItemList = () => {
   const [state, dispatch] = useStoreContext();
 
   const { loading, error, data } = useQuery(VIEW_ITEMS); 
-  console.log(data)
-  
+
   useEffect(() => {
     if (data) {
       // dispatch({
@@ -47,20 +46,25 @@ const ItemList = () => {
   }
 
   return (
-      <Container maxW="100%" pb="75px" 
-        backgroundImage="url('/images/soil-backdrop.jpeg')" 
-        backgroundSize="cover"
-        backgroundPosition="center"> 
+      <Container maxW={{ base: "100%", xl: "2560px" }} pb="75px" bg='gnome.200'>
         <Box display="flex" justifyContent="center">
-          <Grid
-            templateColumns={{ base: "repeat(1, 1fr)", sm: "repeat(2, 1fr)", md: "repeat(3, 1fr)", lg: "repeat(4, 1fr)" }}
-            gap={6}
-            p={6} 
-          >
-            {data.viewItems.map((item, index) => (
-              <Item key={index} item={item} />
-            ))}
-          </Grid>
+        <Grid
+  templateColumns={{
+    base: "repeat(1, minmax(230px, 1fr))",
+    sm: "repeat(2, minmax(230px, 1fr))",
+    md: "repeat(3, minmax(230px, 1fr))",
+    lg: "repeat(4, minmax(230px, 1fr))",
+    xl: "repeat(6, minmax(230px, 2fr))"
+  }}
+  gap={6}
+  p={6} 
+>
+  {data.viewItems.map((item, index) => (
+    <Item key={index} item={item} />
+  ))}
+</Grid>
+
+
         </Box>
       </Container>
   );      

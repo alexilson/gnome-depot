@@ -3,7 +3,6 @@ import { useStoreContext } from "../utils/GlobalState";
 import { ADD_TO_CART, UPDATE_CART_QUANTITY } from "../utils/actions";
 import { useMutation } from '@apollo/client';
 import { ADD_DB_CART } from "../utils/mutations";
-import { idbPromise } from "../utils/helpers";
 
 function Item({ item }) {
   const [state, dispatch] = useStoreContext();
@@ -28,22 +27,19 @@ function Item({ item }) {
         _id: _id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
       });
-      idbPromise('cart', 'put', {
-        ...itemInCart,
-        purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
-      });
     } else {
       dispatch({
         type: ADD_TO_CART,
         product: { ...item, purchaseQuantity: 1 }
       });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
   };
 
   return (
-    <Box maxW='sm' borderWidth='1px' borderRadius='lg' bg='gnome.400' overflow='hidden'>
-      <Image src={item.image} alt={item.name} />
+    <Box maxW='sm' borderWidth='5px' borderRadius='lg' borderColor='gnome.400' bg='gnome.400' overflow='hidden'>
+      <Box borderWidth='1px' borderColor='white' borderRadius='lg' overflow='hidden'>
+        <Image src={item.image} alt={item.name} />
+      </Box>
       <Box p='6'>
         <Box display='flex' alignItems='baseline'>
           <Badge borderRadius='full' px='2' colorScheme='teal'>

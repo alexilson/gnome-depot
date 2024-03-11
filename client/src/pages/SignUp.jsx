@@ -46,9 +46,7 @@ function SignUp() {
 
   return (
     <Flex 
-      backgroundImage="url('/images/soil-backdrop.jpeg')" 
-      backgroundSize="cover"
-      backgroundPosition="center"
+     bg='gnome.100'
       align="center" 
       justify="center" 
       minHeight="75vh" 

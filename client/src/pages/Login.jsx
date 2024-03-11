@@ -47,9 +47,7 @@ const Login = (props) => {
   };
 
   return (
-    <Flex  backgroundImage="url('/images/soil-backdrop.jpeg')" 
-    backgroundSize="cover"
-    backgroundPosition="center" align="center" justify="center" height="75vh" width='100vw'>
+    <Flex bg='gnome.500'align="center" justify="center" height="75vh" width='100vw'>
       <Box bg='gnome.400' width="400px" p={8} borderWidth={1} borderRadius={8} boxShadow="lg" marginTop="-100px">
         <Heading mb={4}>Login</Heading>
         <form onSubmit={handleFormSubmit}>

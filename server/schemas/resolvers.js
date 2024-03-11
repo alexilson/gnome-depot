@@ -1,5 +1,6 @@
 const { User, Item, Order } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
     Query: {
@@ -22,32 +23,54 @@ const resolvers = {
         },
         checkout: async (parent, args, context) => {
             console.log("Made it to server checkout")
+            console.log(args);
             const url = new URL(context.headers.referer).origin;
-            console.log("URL: ", url)
-            const order = new Order({ products: args.products });
-            console.log(order);
+            console.log("RETURN URL: ", url);
+            //const order = new Order({ products: args.products });
             const line_items = [];
-            const { products } = await order.populate('products');
+            //const { products } = await order.populate('products');
             
-            for (let i = 0; i < products.length; i++) {
-              const product = await stripe.products.create({
-                name: products[i].name,
-                description: products[i].description,
-                images: [`${url}/images/${products[i].image}`]
-              });
-      
-              const price = await stripe.prices.create({
-                product: product.id,
-                unit_amount: products[i].price * 100,
-                currency: 'usd',
-              });
-      
-              line_items.push({
-                price: price.id,
-                quantity: 1
-              });
+            // TODO: Refactor with Order Object - brining in product ID's from Cart
+            // find item info based on ID and put in product array
+            const getProducts = async (productIds) => {
+                let foundProducts = [];
+                for (const productId of productIds) {
+                    const product = await Item.findById(productId);
+                    foundProducts.push(product);
+                }
+                return foundProducts;
             }
-      
+            // assign id's from cart array            
+            const productIds = args.products;
+            
+            // create array of products to be checked out
+            const products = await getProducts(productIds);
+
+            for (let i = 0; i < products.length; i++) {
+                console.log("Processing product:", products[i]);
+            
+                const product = await stripe.products.create({
+                    name: products[i].name,
+                    description: products[i].description,
+                    images: [`${url}/images/${products[i].image}`]
+                });
+            
+                console.log("Created product:", product);
+            
+                const price = await stripe.prices.create({
+                    product: product.id,
+                    unit_amount: products[i].price * 100,
+                    currency: 'usd',
+                });
+            
+                console.log("Created price:", price);
+            
+                line_items.push({
+                    price: price.id,
+                    quantity: 1
+                });
+            }
+                
             const session = await stripe.checkout.sessions.create({
               payment_method_types: ['card'],
               line_items,
