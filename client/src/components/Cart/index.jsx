@@ -1,14 +1,13 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { useLazyQuery } from '@apollo/client';
 import { QUERY_CHECKOUT, VIEW_CART } from '../../utils/queries';
-import { idbPromise } from '../../utils/helpers';
 import CartItem from '../CartItem';
 import Auth from '../../utils/auth';
 import { useStoreContext } from '../../utils/GlobalState';
 import { TOGGLE_CART, ADD_MULTIPLE_TO_CART } from '../../utils/actions';
-import icon from '/images/cart.png'
-import { Box, Heading, Text, Button, VStack } from '@chakra-ui/react';
+import icon from '/images/cart.png';
+import { Box, Heading, Text, Button, VStack, Center } from '@chakra-ui/react';
 import './style.css';
 
 // stripePromise returns a promise with the stripe object as soon as the Stripe package loads
@@ -33,15 +32,12 @@ const Cart = () => {
   // If so, invoke the getCart method and populate the cart with the existing from the session/
   useEffect(() => {
     async function getCart() {
-
       console.log("Getting cart from db...")
-
       const cartDb = await viewCart();
-      if (!cartDb) {return (<div>Loading Cart...</div>)}
+      if (!cartDb) return (<div>Loading Cart...</div>)
 
-      const cart = cartDb.data.viewCart.cart
+      const cart = cartDb.data.viewCart.cart; 
 
-      // const cart = await idbPromise('cart', 'get');
       dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
     }
 
@@ -57,9 +53,7 @@ const Cart = () => {
   function calculateTotal() {
     let sum = 0;
     state.cart.forEach((item) => {
-      //TODO: fixe the quantity issue
-      sum += item.price //* item.purchaseQuantity;  
-
+      sum += item.price;
     });
     return sum.toFixed(2);
   }
@@ -67,10 +61,7 @@ const Cart = () => {
   // When the submit checkout method is invoked, loop through each item in the cart
   // Add each item id to the productIds array and then invoke the getCheckout query passing an object containing the id for all our products
   function submitCheckout() {
-    console.log("INSIDE CART CHECKOUT")
-    //console.log(state);    
     const productIds = [];
-
 
     state.cart.forEach((item) => {
       for (let i = 0; i < item.purchaseQuantity; i++) {
@@ -78,9 +69,6 @@ const Cart = () => {
       }
     });
     
-
-    console.log(productIds);
-
     getCheckout({
       variables: { products: productIds },
     });
@@ -91,7 +79,7 @@ const Cart = () => {
     return (
       <div className="cart-closed" onClick={toggleCart}>
         <span role="img" aria-label="trash">
-        <img src={icon} alt="cart-icon" /> 
+          <img src={icon} alt="cart-icon" /> 
         </span>
       </div>
     );
@@ -111,7 +99,6 @@ const Cart = () => {
           <Box m={4}>
             <Text fontWeight="bold">Total: ${calculateTotal()}</Text>
 
-            {/* Check to see if the user is logged in. If so render a button to check out */}
             {Auth.loggedIn() ? (
               <Button onClick={submitCheckout}>Checkout</Button>
             ) : (
@@ -120,12 +107,14 @@ const Cart = () => {
           </Box>
         </VStack>
       ) : (
-        <Heading as="h1">
-          <span role="img" aria-label="shocked">
-            😱
-          </span>
-          You haven't added anything to your cart yet!
-        </Heading>
+        <Center>
+          <Box>
+            <img src="images/logincart.jpg" alt="shocked" style={{ width: "350px", height: "350px", marginRight: "5px" }} />
+            <Heading as="h1">
+              {Auth.loggedIn() ? "You haven't added anything to your cart yet!" : "Please log in to add items to your cart."}
+            </Heading>
+          </Box>
+        </Center>
       )}
     </Box>
   );

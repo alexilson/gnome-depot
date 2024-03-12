@@ -10,15 +10,15 @@ db.once('open', async () => {
     // await cleanDB('Item', 'items');
     // await cleanDB('User', 'users');
 
-    const userOrderData = await userData.map((user) => {
-        console.log(user)
-        user.orders = orderData
-        console.log(user)
-        return user
-    })
+    // const userOrderData = await userData.map((user) => {
+    //     console.log(user)
+    //     user.orders = orderData
+    //     console.log(user)
+    //     return user
+    // })
 
     await Item.create(itemData);
-    await User.create(userOrderData);
+    // await User.create(userOrderData);
 
     process.exit(0);
 })

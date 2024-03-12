@@ -1,44 +1,23 @@
-//import { useEffect } from 'react';
-//import { useMutation } from '@apollo/client';
-import Jumbotron from '../components/Jumbotron';
-//import { ADD_ORDER } from '../utils/mutations';
-//import { idbPromise } from '../utils/helpers';
-import { Box, Flex, Heading, Input, Button, Text } from "@chakra-ui/react"; 
+import { Flex } from "@chakra-ui/react";
+import { useMutation } from '@apollo/client';
+import { CLEAR_DB_CART } from '../utils/mutations';
 
 function Success() {
-  //const [addOrder] = useMutation(ADD_ORDER);
 
-  // useEffect(() => {
-  //   async function saveOrder() {
-  //     const cart = await idbPromise('cart', 'get');
-  //     const products = cart.map((item) => item._id);
+  const [clearDbCart, { error }] = useMutation(CLEAR_DB_CART);
 
-  //     if (products.length) {
-  //       const { data } = await addOrder({ variables: { products } });
-  //       const productData = data.addOrder.products;
+  setTimeout(() => {
+    clearDbCart();
+    window.location.assign('/');
+  }, 3000);
 
-  //       productData.forEach((item) => {
-  //         idbPromise('cart', 'delete', item);
-  //       });
-  //     }
-
-  //     setTimeout(() => {
-  //       window.location.assign('/');
-  //     }, 3000);
-  //   }
-
-  //   saveOrder();
-  // }, [addOrder]);
-
-    return (
-      <Flex align='center' justify='center' height='100vh'>
-        <Jumbotron textAlign='center'>
-          <h1>Success!</h1>
-          <h2>Thank you for your purchase!</h2>
-          <h2>You will now be redirected to the home page</h2>
-        </Jumbotron>
-      </Flex>
-    );
-  }
+  return (
+    <Flex bg="gnome.100" align='center' justify='center' height='75vh' direction='column' width='100vw'>
+      <h1>Success!</h1>
+      <h2>Thank you for your purchase!</h2>
+      <h2>You will now be redirected to the home page</h2>
+    </Flex>
+  );
+}
 
 export default Success;
