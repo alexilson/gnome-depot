@@ -7,7 +7,7 @@ const orderData = require('./orderData.json');
 const userData = require('./userData.json');
 
 db.once('open', async () => {
-    await cleanDB('Item', 'items');
+    // await cleanDB('Item', 'items');
     // await cleanDB('User', 'users');
 
     const userOrderData = await userData.map((user) => {

@@ -139,6 +139,25 @@ const resolvers = {
             .populate('cart');
             console.log(user)
             return user;
+        },
+        clearCart: async (parent, args, context) => {
+            console.log("Clearing cart...");
+            const user = await User.findOneAndUpdate(
+                {
+                    _id: context.user._id
+                },
+                {
+                    $set:
+                    {
+                        'cart': []
+                    }
+                },
+                {
+                    new: true
+                }
+            ).populate('cart');
+            console.log(user);
+            return user;
         }
         
     }
