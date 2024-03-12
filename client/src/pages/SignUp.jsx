@@ -25,7 +25,6 @@ function SignUp() {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
 
     try {
       const { data } = await addUser({
@@ -34,7 +33,6 @@ function SignUp() {
 
       // Ensure data exists before accessing it
       if (data && data.addUser && data.addUser.token) {
-        console.log(data.addUser.token);
         Auth.login(data.addUser.token); 
       } else {
         throw new Error('Failed to fetch token from response.');

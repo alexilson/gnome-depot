@@ -11,7 +11,7 @@ const Footer = () => {
                 position="absolute"
                 bottom="0"
                 left="0"
-                pointerEvents="none" // Add this line
+                pointerEvents="none" 
             />
         </Box>
     );

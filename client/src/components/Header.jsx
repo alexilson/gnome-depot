@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Link, Flex, Button } from "@chakra-ui/react";
+import { Box, Link, Flex } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import Auth from '../utils/auth';
 import headerGif from '/images/Gnome-Depot.gif';

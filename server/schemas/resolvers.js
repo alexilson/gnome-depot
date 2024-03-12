@@ -1,7 +1,9 @@
-const { User, Item, Order } = require('../models');
+const { User, Item} = require('../models');
+require('dotenv').config();
 const { signToken, AuthenticationError } = require('../utils/auth');
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
+
 
 const resolvers = {
     Query: {
@@ -15,23 +17,17 @@ const resolvers = {
                 return await Item.find(id ? {_id: id} : {});
         },
         viewOrders: async (parent, args, context) => {
-            console.log("Trying to view orders", context.user)
             return await User.find(context.user ? { _id: context.user._id } : {}).populate("orders")
         },
         viewCart: async (parent, args, context) => {
-            console.log("Trying to view cart", context.user)
             return await User.findOne( { _id: context.user._id } ).populate("cart");
         },
         checkout: async (parent, args, context) => {
-            console.log("Made it to server checkout")
             console.log(args);
             const url = new URL(context.headers.referer).origin;
-            console.log("RETURN URL: ", url);
-            //const order = new Order({ products: args.products });
+            // TODO: implement order tracking
             const line_items = [];
-            //const { products } = await order.populate('products');
-            
-            // TODO: Refactor with Order Object - brining in product ID's from Cart
+
             // find item info based on ID and put in product array
             const getProducts = async (productIds) => {
                 let foundProducts = [];
@@ -46,32 +42,36 @@ const resolvers = {
             
             // create array of products to be checked out
             const products = await getProducts(productIds);
-
-            for (let i = 0; i < products.length; i++) {
-                console.log("Processing product:", products[i]);
             
+            console.log(products);
+
+            // strip prep and send
+            for (let i = 0; i < products.length; i++) {
+                console.log("Made it to loop")
+
                 const product = await stripe.products.create({
                     name: products[i].name,
                     description: products[i].description,
-                    images: [`${url}/images/${products[i].image}`]
                 });
             
-                console.log("Created product:", product);
-            
+                console.log(product);
+
                 const price = await stripe.prices.create({
                     product: product.id,
                     unit_amount: products[i].price * 100,
                     currency: 'usd',
                 });
-            
-                console.log("Created price:", price);
+                
+                console.log(price)
             
                 line_items.push({
                     price: price.id,
                     quantity: 1
                 });
+                console.log(line_items);
             }
-                
+            
+            // link to stripe
             const session = await stripe.checkout.sessions.create({
               payment_method_types: ['card'],
               line_items,
@@ -79,13 +79,13 @@ const resolvers = {
               success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
               cancel_url: `${url}/`
             });
-      
+            
+            // return from stripe
             return { session: session.id };
           }
     },
     Mutation: {
         addUser: async (parent, { username, email, password }) => {
-                console.log("MADE IT TO SERVER MUTATION")
                 const user = await User.create({ username, email, password });
                 const token = await signToken(user);
                 return { token, user };
@@ -101,9 +101,6 @@ const resolvers = {
             return { token, user }
         },
         addToCart: async (parent, { item }, context) => {
-            console.log("Adding to cart...");
-            console.log(item)
-            console.log("User id:", context.user._id)
             const user = await User.findOneAndUpdate(
                 {
                     _id: context.user._id
@@ -115,13 +112,9 @@ const resolvers = {
                     new: true
                 }
             ).populate('cart');
-            console.log(user);
             return(user);
         },
         removeFromCart: async (parent, { item }, context) => {
-            console.log("Removing from cart...");
-            console.log(item)
-            console.log("User id:", context.user._id)
             const user = await User.findOneAndUpdate(
                 {
                     _id: context.user._id
@@ -137,7 +130,6 @@ const resolvers = {
                 }
             )
             .populate('cart');
-            console.log(user)
             return user;
         },
         clearCart: async (parent, args, context) => {

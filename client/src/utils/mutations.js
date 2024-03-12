@@ -52,3 +52,17 @@ export const REMOVE_DB_CART = gql`
     }
   }
 `
+export const CLEAR_DB_CART = gql`
+  mutation clearDbCart {
+    clearCart {
+      cart {
+        _id
+        name
+        description
+        image
+        price
+        inStock
+      }
+    }
+  }
+`
