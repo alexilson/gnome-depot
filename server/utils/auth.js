@@ -4,7 +4,6 @@ require('dotenv').config();
 
 // const secret = "gnomebodygnomes" //process.env.SECRET
 
-console.log(process.env.AUTH_SECRET)
 const secret = process.env.AUTH_SECRET
 const expiration = '2h'
 

@@ -51,6 +51,7 @@ type Mutation {
     loginUser(username: String!, password: String!): Auth
     addToCart(item: ID!): User
     removeFromCart(item: ID!): User
+    clearCart: User
 }
 `
 
