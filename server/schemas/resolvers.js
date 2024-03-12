@@ -1,7 +1,8 @@
 const { User, Item, Order } = require('../models');
 require('dotenv').config();
 const { signToken, AuthenticationError } = require('../utils/auth');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
 const resolvers = {
     Query: {
@@ -121,6 +122,26 @@ const resolvers = {
                 }
             )
             .populate('cart');
+
+            return user;
+        },
+        clearCart: async (parent, args, context) => {
+            console.log("Clearing cart...");
+            const user = await User.findOneAndUpdate(
+                {
+                    _id: context.user._id
+                },
+                {
+                    $set:
+                    {
+                        'cart': []
+                    }
+                },
+                {
+                    new: true
+                }
+            ).populate('cart');
+            console.log(user);
             return user;
         }
         
