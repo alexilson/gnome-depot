@@ -1,7 +1,6 @@
-const { User, Item, Order } = require('../models');
+const { User, Item} = require('../models');
 require('dotenv').config();
 const { signToken, AuthenticationError } = require('../utils/auth');
-
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 
@@ -24,6 +23,7 @@ const resolvers = {
             return await User.findOne( { _id: context.user._id } ).populate("cart");
         },
         checkout: async (parent, args, context) => {
+            console.log(args);
             const url = new URL(context.headers.referer).origin;
             // TODO: implement order tracking
             const line_items = [];
@@ -43,26 +43,32 @@ const resolvers = {
             // create array of products to be checked out
             const products = await getProducts(productIds);
             
+            console.log(products);
+
             // strip prep and send
             for (let i = 0; i < products.length; i++) {
-            
+                console.log("Made it to loop")
+
                 const product = await stripe.products.create({
                     name: products[i].name,
                     description: products[i].description,
-                    images: [`${url}/images/${products[i].image}`]
                 });
             
+                console.log(product);
+
                 const price = await stripe.prices.create({
                     product: product.id,
                     unit_amount: products[i].price * 100,
                     currency: 'usd',
                 });
-            
+                
+                console.log(price)
             
                 line_items.push({
                     price: price.id,
                     quantity: 1
                 });
+                console.log(line_items);
             }
             
             // link to stripe
