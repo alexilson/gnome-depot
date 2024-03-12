@@ -8,17 +8,12 @@ function Item({ item }) {
   const [state, dispatch] = useStoreContext();
   const [addDbCart] = useMutation(ADD_DB_CART);
 
-  const {
-    name,
-    _id,
-    price,
-  } = item;
+  const { _id } = item;
 
   const { cart } = state;
 
   const addToCart = async () => {
     const cartDb = await addDbCart({ variables: { item: _id } });
-    console.log(cartDb);
     
     const itemInCart = cart.find((cartItem) => cartItem._id === _id);
     if (itemInCart) {

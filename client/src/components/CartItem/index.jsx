@@ -1,7 +1,7 @@
 import { useStoreContext } from "../../utils/GlobalState";
 import { REMOVE_FROM_CART, UPDATE_CART_QUANTITY } from "../../utils/actions";
 import { idbPromise } from "../../utils/helpers";
-import { useQuery, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { REMOVE_DB_CART } from "../../utils/mutations";
 
 import { Flex, Image, Box, Text, Input, IconButton } from '@chakra-ui/react';
@@ -27,26 +27,6 @@ const CartItem = ({ item }) => {
 
   };
 
-  const onChange = (e) => {
-    const value = e.target.value;
-    if (value === '0') {
-      dispatch({
-        type: REMOVE_FROM_CART,
-        _id: item._id
-      });
-      idbPromise('cart', 'delete', { ...item });
-
-    } else {
-      dispatch({
-        type: UPDATE_CART_QUANTITY,
-        _id: item._id,
-        purchaseQuantity: parseInt(value)
-      });
-      idbPromise('cart', 'put', { ...item, purchaseQuantity: parseInt(value) });
-
-    }
-  }
-
   return (
     <Flex alignItems="center" width="100%">
     <Box display="inline-block">
@@ -55,14 +35,7 @@ const CartItem = ({ item }) => {
     <Box width="100%" ml={4} display="inline-block">
       <Text>{item.name}, ${item.price}</Text>
       <Flex alignItems="center">
-        <Text>Qty:</Text>
-        <Input
-          type="number"
-          placeholder="1"
-          value={item.purchaseQuantity}
-          onChange={onChange}
-          ml={2}
-        />
+        <Text>Qty: 1</Text>
         <IconButton
           icon={<DeleteIcon />}
           aria-label="Delete"
